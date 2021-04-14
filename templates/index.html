@@ -1,5 +1,31 @@
-{% for item in data %}
+{% extends "base.html" %} {% block content %}
 
-    <h2>{{ item }}</h2>
 
-{% endfor %}
+<h2 id="teste">aaa</h2>
+<br>
+
+<script>
+
+
+var seconds = 2*1000;
+
+
+function doLoop() {   
+    $.ajax ({
+        url: "/pegar",
+        type: "POST",
+        processData:false,
+        
+    }).done(function(data) {
+        console.log(data)
+    
+        document.getElementById('teste').innerHTML= data;
+        setTimeout(doLoop, seconds);
+    });
+};
+
+$(document).ready(doLoop);
+
+</script>
+
+{% endblock %}

@@ -3,24 +3,22 @@ import os
 import pandas as pd
 from datetime import datetime
 import time
-import MetaTrader5 as mt5
+
+from random import *
 
 app=Flask(__name__)
 port = int(os.environ.get('PORT', 5000))
 
 @app.route('/')
 def index():
-    if not mt5.initialize():
-        print("Falha ao inicializar")
-        mt5.shutdown()
+    
+    return render_template('index.html')
 
-    ativos=mt5.symbols_get()
-    data=[]
-    for i in range(0, 10):
-       data.append(ativos[i].name)
-    return render_template('index.html', data=data)
-
-
+@app.route('/pegar', methods=['POST'])
+def pegar():
+    data = str(randint(1,100))
+    
+    return data
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)
