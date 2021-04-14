@@ -1,25 +1,78 @@
 {% extends "base.html" %} {% block content %}
 
 
-<h2 id="teste">aaa</h2>
 <br>
+
+<div class="container shadow-sm">
+    <h4>Atualiza a cada 5 minutos..</h4>
+    <h6>Índice: WDOK21</h6>
+    <hr>
+    <table id="tabela">
+        <thead>
+        <tr>
+            {% for header in headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody id="inserir">
+
+        </tbody>
+        
+        
+
+    </table>
+</div>
 
 <script>
 
 
-var seconds = 2*1000;
+var seconds = 300*1000;
 
 
 function doLoop() {   
+    $(".teste td").html("");
+    $(".teste").html("");
+    $(".teste").html("&nbsp;");
+    $(".teste td").html("&nbsp;");
+    $(".teste").empty();
+    $(".teste").remove();
+
+    $(".teste td").empty();
+
     $.ajax ({
         url: "/pegar",
         type: "POST",
         processData:false,
         
     }).done(function(data) {
-        console.log(data)
-    
-        document.getElementById('teste').innerHTML= data;
+        const keys = Object.keys(data)
+        //console.log(data)
+        //console.log(keys)
+        let msg;
+        
+        
+          
+
+        for (let i=1; i<= keys.length; i++){
+                
+                msg = `<tr class='teste'>
+                   
+                    <td>${data['valores'+i]['open']}</td>
+                    <td>${data['valores'+i]['high']}</td>
+                    <td>${data['valores'+i]['low']}</td>
+                    <td>${data['valores'+i]['close']}</td>
+                    <td>${data['valores'+i]['tick_volume']}</td>
+                    <td>${data['valores'+i]['hora']}</td>
+                    <td>${data['valores'+i]['minuto']}</td>
+
+                    </tr>`;
+                    $('#inserir').append(msg);
+                    
+        }
+        
+        $('#tabela').DataTable();
+        //document.getElementById('teste').innerHTML= data['valores']['open'];
         setTimeout(doLoop, seconds);
     });
 };
