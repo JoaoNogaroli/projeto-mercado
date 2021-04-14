@@ -1,1 +1,1 @@
-web: gunicorn projeto-mercado.wsgi:app
+web: gunicorn app:app
