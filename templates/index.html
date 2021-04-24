@@ -111,9 +111,8 @@ function doLoop() {
         }
         
         $('#tabela').DataTable( {
-            'paging': false,
-            'searching': false,
-            "order": [[ 6, "desc" ]],});
+                      
+           "order": [[ 6, "desc" ]],});
         //document.getElementById('teste').innerHTML= data['valores']['open'];
         setTimeout(doLoop, seconds);
     });
